@@ -1,12 +1,12 @@
-// inside db/index.js
-const { Client } = require("pg"); // imports the pg module
-const client = new Client("postgres://localhost:5433/juicebox-dev");
+const { Client } = require('pg') // imports the pg module
+
+const client = new Client('postgres://localhost:5433/juicebox-dev');
 
 /**
  * USER Methods
  */
 
-async function createUser({ username, password, name, location }) {
+ async function createUser({ username, password, name, location }) {
   try {
     const {
       rows: [user],
@@ -209,11 +209,11 @@ async function createTags(tagList) {
   }
 
   // need something like: ($1), ($2), ($3)
-  const insertValues = tagList.map((_, index) => `$${index + 1}`).join("), (");
+  const insertValues = tagList.map((_, index) => `$${index + 1}`).join('), (');
   // then we can use: (${ insertValues }) in our string template
 
   // need something like $1, $2, $3
-  const selectValues = tagList.map((_, index) => `$${index + 1}`).join(",");
+  const selectValues = tagList.map((_, index) => `$${index + 1}`).join(',');
   // then we can use (${ selectValues }) in our string template
 
   try {
@@ -247,8 +247,7 @@ async function createPostTag(postId, tagId) {
       VALUES ($1, $2)
       ON CONFLICT ("postId", "tagId") DO NOTHING;
     `,
-      [postId, tagId]
-    );
+      [postId, tagId]);
   } catch (error) {
     throw error;
   }
@@ -270,37 +269,24 @@ async function addTagsToPost(postId, tagList) {
 
 async function getPostById(postId) {
   try {
-    const {
-      rows: [post],
-    } = await client.query(
-      `
+    const { rows: [ post ]  } = await client.query(`
       SELECT *
       FROM posts
       WHERE id=$1;
-    `,
-      [postId]
-    );
+    `, [postId]);
 
-    const { rows: tags } = await client.query(
-      `
+    const { rows: tags } = await client.query(`
       SELECT tags.*
       FROM tags
       JOIN post_tags ON tags.id=post_tags."tagId"
       WHERE post_tags."postId"=$1;
-    `,
-      [postId]
-    );
+    `, [postId])
 
-    const {
-      rows: [author],
-    } = await client.query(
-      `
+    const { rows: [author] } = await client.query(`
       SELECT id, username, name, location
       FROM users
       WHERE id=$1;
-    `,
-      [post.authorId]
-    );
+    `, [post.authorId])
 
     post.tags = tags;
     post.author = author;

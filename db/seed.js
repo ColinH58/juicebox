@@ -1,3 +1,4 @@
+//grab client with destructuring from the export in index.js
 const {
   client,
   createUser,
@@ -21,10 +22,10 @@ async function dropTables() {
 
     // have to make sure to drop in correct order
     await client.query(`
-    DROP TABLE IF EXISTS post_tags;
-    DROP TABLE IF EXISTS tags;
-    DROP TABLE IF EXISTS posts;
-    DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS post_tags cascade;
+      DROP TABLE IF EXISTS tags cascade;
+      DROP TABLE IF EXISTS posts cascade;
+      DROP TABLE IF EXISTS users cascade;
     `);
 
     console.log("Finished dropping tables!");
@@ -139,6 +140,7 @@ async function createInitialPosts() {
 async function rebuildDB() {
   try {
     client.connect();
+
     await dropTables();
     await createTables();
     await createInitialUsers();
