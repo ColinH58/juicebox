@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./db/seed.js",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js",
     "seed:dev": "nodemon ./db/seed.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.3",
     "pg": "^8.7.3"
   },
   "devDependencies": {
