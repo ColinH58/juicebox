@@ -4,7 +4,6 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const apiRouter = require("./api");
 
-// require("dotenv").config();
 server.use(morgan("dev"));
 server.use(bodyParser.json());
 server.use(express.json());
