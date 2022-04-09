@@ -1,10 +1,12 @@
 // require('dotenv').config();
 const { Client } = require("pg"); // imports the pg module
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL || 'postgres://localhost:5432/juicebox-dev',
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
-});
+const client = new Client ('postgres://localhost:5433/juicebox-dev')
+
+// const client = new Client({
+//   connectionString: process.env.DATABASE_URL || 'postgres://localhost:5433/juicebox-dev',
+//   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
+// });
 
 /**
  * USER Methods

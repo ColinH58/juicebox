@@ -28,7 +28,8 @@ server.use((req, res, next) => {
   next();
 });
 
-const { PORT = 3000 } = process.env
+// const { PORT = 3000 } = process.env
+const PORT = 3000
 server.listen(PORT, () => {
   console.log("The server is up on port", PORT);
 });
