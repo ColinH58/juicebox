@@ -71,6 +71,7 @@ async function getAllUsers() {
 
 async function getUserById(userId) {
   try {
+    // console.log(userId)
     const {
       rows: [user],
     } = await client.query(`
@@ -84,7 +85,7 @@ async function getUserById(userId) {
     }
 
     user.posts = await getPostsByUser(userId);
-
+    // console.log(user)
     return user;
   } catch (error) {
     throw error;
