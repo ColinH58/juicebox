@@ -21,12 +21,10 @@ server.get("/background/:color", (req, res, next) => {
   `);
 });
 
-//Tells the server to always call this function
 server.use((req, res, next) => {
   console.log("<____Body Logger START____>");
   console.log(req.body);
   console.log("<_____Body Logger END_____>");
-  
   next();
 });
 
