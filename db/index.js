@@ -96,18 +96,18 @@ async function getUserById(userId) {
  * POST Methods
  */
 
-async function createPost({ authorId, title, content, tags = [] }) {
+ async function createPost({
+  authorId,
+  title,
+  content,
+  tags = []
+}) {
   try {
-    const {
-      rows: [post],
-    } = await client.query(
-      `
+    const { rows: [ post ] } = await client.query(`
       INSERT INTO posts("authorId", title, content) 
       VALUES($1, $2, $3)
       RETURNING *;
-    `,
-      [authorId, title, content]
-    );
+    `, [authorId, title, content]);
 
     const tagList = await createTags(tags);
 
