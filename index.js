@@ -4,6 +4,9 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const apiRouter = require("./api");
 
+const { client } = require("./db");
+client.connect();
+
 server.use(morgan("dev"));
 server.use(bodyParser.json());
 server.use(express.json());
@@ -25,9 +28,6 @@ server.use((req, res, next) => {
   
   next();
 });
-
-const { client } = require("./db");
-client.connect();
 
 const PORT = 3000;
 server.listen(PORT, () => {
